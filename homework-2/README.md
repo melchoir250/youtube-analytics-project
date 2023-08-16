@@ -16,3 +16,19 @@
 
 ## Ожидаемое поведение
 - Код в файле `main.py` должен выдавать ожидаемые значения
+
+
+
+
+    def __init__(self, channel_id: str) -> None:
+        """Экземпляр инициализируется id канала. Дальше все данные будут подтягиваться по API."""
+        self.__channel_id = channel_id
+        channel = youtube.channels().list(id=self.__channel_id, part='snippet,statistics').execute()
+        info_channel = json.dumps(channel, indent=2, ensure_ascii=False)
+        info_channel_json = json.loads(info_channel)
+        self.title = info_channel_json['items'][0]['snippet']['title']
+        self.description = info_channel_json['items'][0]['snippet']['description']
+        self.url = 'https://www.youtube.com/channel/' + self.__channel_id
+        self.subs_count = info_channel_json['items'][0]['statistics']['subscriberCount']
+        self.video_count = info_channel_json['items'][0]['statistics']['videoCount']
+        self.view_count = info_channel_json['items'][0]['statistics']['viewCount']

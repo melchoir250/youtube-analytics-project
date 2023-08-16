@@ -11,7 +11,7 @@ import isodate
 api_key: str = os.getenv('YT_API_KEY')
 
 # создать специальный объект для работы с API
-youtube = build('youtube', 'v3', developerKey=api_key)
+youtube = build('youtube', 'v3', developerKey='AIzaSyAa9bdrXR0NRQX4X4TI6zKdfhWGHwISbCA')
 
 
 def printj(dict_to_print: dict) -> None:
