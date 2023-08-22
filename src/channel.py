@@ -4,7 +4,7 @@ import json
 
 
 api_key: str = os.getenv('API_KEY')
-youtube = build('youtube', 'v3', developerKey='AIzaSyAa9bdrXR0NRQX4X4TI6zKdfhWGHwISbCA')
+#youtube = build('youtube', 'v3', developerKey='AIzaSyAa9bdrXR0NRQX4X4TI6zKdfhWGHwISbCA')
 
 
 class Channel:
@@ -13,6 +13,8 @@ class Channel:
     def __init__(self, channel_id: str) -> None:
         """Экземпляр инициализируется id канала. Дальше все данные будут подтягиваться по API."""
         self.__channel_id = channel_id
+        self.youtube = self.get_service
+        
         channel = youtube.channels().list(id=self.__channel_id, part='snippet,statistics').execute()
         info_channel = json.dumps(channel, indent=2, ensure_ascii=False)
         info_channel_json = json.loads(info_channel)
@@ -25,7 +27,7 @@ class Channel:
 
     @classmethod
     def get_service(cls):
-        return build('youtube', 'v3', developerKey='AIzaSyAa9bdrXR0NRQX4X4TI6zKdfhWGHwISbCA')
+        return build('youtube', 'v3', developerKey=api_key)
         #return youtube
 
     def to_json(self, file_name):
