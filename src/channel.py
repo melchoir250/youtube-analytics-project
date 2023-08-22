@@ -3,7 +3,7 @@ from googleapiclient.discovery import build
 import json
 
 
-api_key: str = os.getenv('API_KEY')
+api_key: str = os.getenv('YT_API_KEY')
 #youtube = build('youtube', 'v3', developerKey='AIzaSyAa9bdrXR0NRQX4X4TI6zKdfhWGHwISbCA')
 
 
@@ -15,7 +15,7 @@ class Channel:
         self.__channel_id = channel_id
         self.youtube = self.get_service
         
-        channel = youtube.channels().list(id=self.__channel_id, part='snippet,statistics').execute()
+        channel = self.youtube.channels().list(id=self.__channel_id, part='snippet,statistics').execute()
         info_channel = json.dumps(channel, indent=2, ensure_ascii=False)
         info_channel_json = json.loads(info_channel)
         self.title = info_channel_json['items'][0]['snippet']['title']
@@ -31,7 +31,7 @@ class Channel:
         #return youtube
 
     def to_json(self, file_name):
-        channel = youtube.channels().list(id=self.__channel_id, part='snippet,statistics').execute()
+        channel = self.youtube.channels().list(id=self.__channel_id, part='snippet,statistics').execute()
         with open(os.path.join(file_name), 'w') as file:
             file.write(json.dumps(channel, indent=2, ensure_ascii=False))
         # print(name_file)
