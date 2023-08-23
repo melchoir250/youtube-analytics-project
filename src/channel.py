@@ -1,7 +1,9 @@
 import os
 from googleapiclient.discovery import build
 import json
+from dotenv import load_dotenv
 
+load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
 
 api_key: str = os.getenv('YT_API_KEY')
 #youtube = build('youtube', 'v3', developerKey='AIzaSyAa9bdrXR0NRQX4X4TI6zKdfhWGHwISbCA')
@@ -25,9 +27,13 @@ class Channel:
         self.video_count = info_channel_json['items'][0]['statistics']['videoCount']
         self.view_count = info_channel_json['items'][0]['statistics']['viewCount']
 
+    # @classmethod
+    # def get_service(cls):
+    #     return build('youtube', 'v3', developerKey=api_key)
+    
     @classmethod
     def get_service(cls):
-        return build('youtube', 'v3', developerKey=api_key)
+        return build('youtube', 'v3', developerKey=Channel.api_key)
 
     def to_json(self, file_name):
         channel = self.youtube.channels().list(id=self.__channel_id, part='snippet,statistics').execute()
