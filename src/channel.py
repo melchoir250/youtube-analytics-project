@@ -3,13 +3,15 @@ from googleapiclient.discovery import build
 import json
 from dotenv import load_dotenv
 
-load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
+# load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
 
-api_key: str = os.getenv('YT_API_KEY')
+# api_key: str = os.getenv('YT_API_KEY')
 #youtube = build('youtube', 'v3', developerKey='AIzaSyAa9bdrXR0NRQX4X4TI6zKdfhWGHwISbCA')
 
 
 class Channel:
+    load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
+    api_key: str = os.getenv('YT_API_KEY')
     """Класс для ютуб-канала"""
 
     def __init__(self, channel_id: str) -> None:
